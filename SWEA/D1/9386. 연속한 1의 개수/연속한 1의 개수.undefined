@@ -1,0 +1,19 @@
+T = int(input())
+
+for tc in range(1, T+1):
+    N = int(input())
+    s = input()
+    cnt = 0
+    ls = []
+
+    for n in s:
+        if n == "1":
+            cnt += 1
+            ls.append(cnt)
+        elif n == "0":
+            ls.append(cnt)
+            cnt = 0
+
+    max_con = max(ls)
+
+    print(f"#{tc} {max_con}")

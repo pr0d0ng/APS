@@ -23,6 +23,7 @@ for tc in range(1, T+1):
 
         if left_finding_r == right_finding_r:
             print(f"#{tc} {finding_r}")
+            break
         else:
             continue
 
@@ -43,5 +44,6 @@ for tc in range(1, T+1):
 
             if left_finding_c == right_finding_c:
                 print(f"#{tc} {finding_c}")
+                break
             else:
                 continue

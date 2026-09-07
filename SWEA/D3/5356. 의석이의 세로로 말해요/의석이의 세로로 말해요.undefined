@@ -1,0 +1,22 @@
+T = int(input())
+
+for tc in range(1, T+1):
+    arr = []
+    for _ in range(5):
+        arr.append(input())
+
+    N = len(max(arr, key=len))
+
+    for i in range(len(arr)):
+        if len(arr[i]) < N:
+            while len(arr[i]) != N:
+                arr[i] += '#'
+
+    ans = ''
+    for j in range(N):
+        for i in range(5):
+            if arr[i][j] == '#':
+                continue
+            ans += arr[i][j]
+
+    print(f"#{tc} {ans}")

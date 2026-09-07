@@ -1,0 +1,47 @@
+T = int(input())
+
+for tc in range(1, T+1):
+    N, M = map(int, input().split())
+    arr = []
+
+    for _ in range(N):
+        s = input()
+        arr.append(s)
+
+    for i in range(N):
+        for j in range(N-M+1):
+            finding_r = arr[i][j:j+M]
+
+        if len(finding_r) % 2:
+            left_finding_r = finding_r[:len(finding_r) // 2]
+            right_finding_r = finding_r[len(finding_r) // 2 + 1:]
+        else:
+            left_finding_r = finding_r[:len(finding_r) // 2]
+            right_finding_r = finding_r[len(finding_r) // 2:]
+
+        right_finding_r = right_finding_r[::-1]
+
+        if left_finding_r == right_finding_r:
+            print(f"#{tc} {finding_r}")
+        else:
+            continue
+
+    for j in range(N):
+        for i in range(N-M+1):
+            finding_c = ''
+            for k in range(i, i+M):
+                finding_c += arr[k][j]
+
+            if len(finding_c) % 2:
+                left_finding_c = finding_c[:len(finding_c) // 2]
+                right_finding_c = finding_c[len(finding_c) // 2 + 1:]
+            else:
+                left_finding_c = finding_c[:len(finding_c) // 2]
+                right_finding_c = finding_c[len(finding_c) // 2:]
+
+            right_finding_c = right_finding_c[::-1]
+
+            if left_finding_c == right_finding_c:
+                print(f"#{tc} {finding_c}")
+            else:
+                continue

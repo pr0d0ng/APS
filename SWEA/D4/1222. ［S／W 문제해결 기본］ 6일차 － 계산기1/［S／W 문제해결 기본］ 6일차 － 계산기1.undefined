@@ -1,0 +1,58 @@
+T = 10
+
+for tc in range(1, T+1):
+    calc_len = int(input())
+    calc_str = input()
+
+    top = -1
+    operator_stack = [0] * calc_len
+    operand_stack = [0] * calc_len
+    exp = ''
+    operand = '0123456789'
+    icp = {'*': 2, '/': 2, '+': 1, '-': 1, '(': 3}
+    isp = {'*': 2, '/': 2, '+': 1, '-': 1, '(': 0}
+
+    for s in calc_str:
+        if s in operand:
+            exp += s
+
+        elif s == ')':
+            while top > -1 and operator_stack[top] != '(':
+                exp += operator_stack[top]
+                top -= 1
+            top -= 1
+
+        elif s in icp: # s not in operand
+            while top > -1 and isp[operator_stack[top]] >= icp[s]:
+                exp += operator_stack[top]
+                top -= 1
+
+            top += 1
+            operator_stack[top] = s
+
+    while top > -1:
+        exp += operator_stack[top]
+        top -= 1
+
+    ops = {
+        '+': lambda a, b: a + b,
+        '-': lambda a, b: a - b,
+        '*': lambda a, b: a * b,
+        '/': lambda a, b: a / b
+    }
+
+    for s in exp:
+        if s in operand:
+            top += 1
+            operand_stack[top] = int(s)
+
+        else:
+            operand1 = operand_stack[top]
+            top -= 1
+            operand2 = operand_stack[top]
+            top -= 1
+
+            top += 1
+            operand_stack[top] = ops[s](operand1, operand2)
+
+    print(f"#{tc} {operand_stack[top]}")

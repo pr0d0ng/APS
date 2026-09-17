@@ -1,0 +1,32 @@
+T = int(input())
+
+for tc in range(1, T+1):
+    E, N = map(int, input().split())
+    node_pairs = list(map(int, input().split()))
+
+    parent = [0] * (E+2)
+    lc = [0] * (E+2)
+    rc = [0] * (E+2)
+
+    for i in range(E):
+        if lc[node_pairs[2*i]] == 0:
+            lc[node_pairs[2*i]] = node_pairs[2*i+1]
+            parent[node_pairs[2*i+1]] = node_pairs[2*i]
+        else:
+            rc[node_pairs[2*i]] = node_pairs[2*i+1]
+            parent[node_pairs[2*i+1]] = node_pairs[2*i]
+
+    node_num = 0
+
+    def count_children_node(node):
+        global node_num
+        if node == 0:
+            return
+
+        count_children_node(lc[node])
+        node_num += 1
+        count_children_node(rc[node])
+
+    count_children_node(N)
+
+    print(f"#{tc} {node_num}")

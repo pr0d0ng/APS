@@ -1,0 +1,45 @@
+T = 10
+
+for tc in range(1, T+1):
+    N = int(input())
+
+    lc = [0] * (N+1)
+    rc = [0] * (N+1)
+
+    node_char = [""] * (N+1)
+
+    parent = [0] * (N+1)
+
+    for i in range(N):
+        node, char, *children = input().split()
+        node = int(node)
+        node_char[node] = char
+
+        children = list(map(int, children))
+
+        if len(children) >= 1:
+            lc[node] = children[0]
+            parent[children[0]] = node
+
+        if len(children) == 2:
+            rc[node] = children[1]
+            parent[children[1]] = node
+
+    root = 1
+    for i in range(1, N+1):
+        if parent[i] == 0:
+            root = i
+            break
+
+    result = []
+    def inorder(node):
+        if node == 0:
+            return
+
+        inorder(lc[node])
+        result.append(node_char[node])
+        inorder(rc[node])
+
+    inorder(root)
+    answer = "".join(result)
+    print(f"#{tc} {answer}")

@@ -1,0 +1,47 @@
+T = 10
+
+for tc in range(1, T+1):
+    testcase, edge_num = map(int, input().split())
+    edge_list = list(map(int, input().split()))
+
+    route_dict = {}
+
+    for i in range(0, len(edge_list), 2):
+        k = edge_list[i]
+        v = edge_list[i+1]
+
+        if k in route_dict:
+            route_dict[k].append(v)
+        else:
+            route_dict[k] = [v]
+
+    visited = [0] * 101
+    stack = []
+    v = 0
+    visited[v] = 1
+    ans = 0
+
+    while True:
+        if v == 99:
+            ans = 1
+            break
+
+        if v in route_dict:
+            for w in route_dict[v]:
+                if visited[w] == 0:
+                    stack.append(v)
+                    visited[w] = 1
+                    v = w
+                    break
+            else:
+                if stack:
+                    v = stack.pop()
+                else:
+                    break
+        else:
+            if stack:
+                v = stack.pop()
+            else:
+                break
+
+    print(f"#{tc} {ans}")

@@ -1,0 +1,46 @@
+from collections import defaultdict
+
+T = int(input())
+
+for tc in range(1, T+1):
+    grid = []
+
+    for _ in range(9):
+        grid.append(list(map(int, input().split())))
+
+    flag = 1
+
+    for i in range(9):
+        cnt = defaultdict(int)
+        for j in range(9):
+            cnt[grid[i][j]] += 1
+            for num in cnt.values():
+                if num != 1:
+                    flag = 0
+
+    transposed_grid = list(zip(*grid))
+
+    for i in range(9):
+        cnt = defaultdict(int)
+        for j in range(9):
+            cnt[transposed_grid[i][j]] += 1
+            for num in cnt.values():
+                if num != 1:
+                    flag = 0
+
+    sub_grids = []
+
+    for i in range(0, 9, 3):
+        for j in range(0, 9, 3):
+            sub_grids.append(list(zip(*grid[i:i+3]))[j:j+3])
+
+    for i in range(len(sub_grids)):
+        cnt = defaultdict(int)
+        for j in range(3):
+            for k in range(3):
+                cnt[sub_grids[i][j][k]] += 1
+        for num in cnt.values():
+            if num != 1:
+                flag = 0
+
+    print(f"#{tc} {flag}")

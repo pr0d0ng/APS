@@ -1,0 +1,21 @@
+T = int(input())
+
+for tc in range(1, T+1):
+    N = int(input())
+    num_list = list(map(int, input().split()))
+    num_list.sort()
+
+    left_list = num_list[:N//2]
+    right_list = num_list[N//2:]
+
+    left_list.sort(reverse=True)
+    
+    arr = []
+
+    for _ in range(N//2):
+        arr.append(right_list.pop())
+        arr.append(left_list.pop())
+
+    ans = arr[:10]
+    
+    print(f"#{tc}", *ans)
